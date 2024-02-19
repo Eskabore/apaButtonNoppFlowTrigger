@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Verwaltung der Rabatte" icon-name="utility:percent">
+        <div class="slds-m-around_medium">
+            <template if:true={opportunity.data}>
+                <template if:true={opportunity.data.fields.Rabatt_in_Percent__c.value}>
+                    <lightning-input type="number"
+                                     label="Rabatt in %"
+                                     value={loadedDiscountPercentage}
+                                     onchange={handlePercentageChange}>
+                    </lightning-input>
+                </template>
+
+                <template if:true={opportunity.data.fields.Rabatt_in_EUR_checkbox__c.value}>
+                    <lightning-input type="number"
+                                     label="Rabatt Betrag"
+                                     value={loadedDiscountAmount}
+                                     onchange={handleAmountChange}>
+                    </lightning-input>
+                </template>
+
+                <lightning-button variant="brand"
+                                  label="Speichern"
+                                  title="Save"
+                                  onclick={handleSave}
+                                  class="slds-m-top_small">
+                </lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>
