@@ -11,13 +11,9 @@ export default class OpportunityFlowTrigger extends LightningElement {
     opportunityData; // Used to cache the response for refreshApex
 
     @wire(getRecord, { recordId: '$recordId', fields: [STATE_FIELD] })
-    wiredOpportunity({ error, data }) {
-        if (data) {
-            this.opportunityData = data;
-        } else if (error) {
-            this.showToast('Fehler', 'Fehler beim Laden der Opportunity-Daten', error.body.message, 'fehler');
-            console.error('Fehler beim Abrufen von Opportunity-Daten:', error);
-        }
+    wiredOpportunity(response) {
+        this.opportunityData = response;
+        // Error handling is not needed here as we are using getFieldValue below
     }
 
     handleClick() {
@@ -27,7 +23,7 @@ export default class OpportunityFlowTrigger extends LightningElement {
                 return refreshApex(this.opportunityData);
             })
             .then(() => {
-                this.resetState(); // No more setTimeout, we can call it directly
+                setTimeout(() => this.resetState(), 3000); // Delay for 3 seconds
             })
             .catch(error => {
                 this.showToast('Fehler', error.body?.message || 'Unbekannter Fehler', 'error');
@@ -50,9 +46,6 @@ export default class OpportunityFlowTrigger extends LightningElement {
     }
 
     get stateValue() {
-        // Safely check if `this.opportunityData` and `this.opportunityData.data` are defined before trying to access `STATE_FIELD`
-        return this.opportunityData && this.opportunityData.data
-            ? getFieldValue(this.opportunityData.data, STATE_FIELD)
-            : undefined; // Return undefined or a default value if data is not available
+        return getFieldValue(this.opportunityData.data, STATE_FIELD);
     }
 }
