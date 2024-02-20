@@ -1,7 +1,13 @@
 <template>
     <lightning-card title="" icon-name="">
         <div class="slds-clearfix">
-            <lightning-button label="Automatisierte Produkt Auswahl" title="Activate APA" onclick={handleClick} class="slds-align_absolute-center"></lightning-button>
+            <lightning-button
+            label={buuttonLabel}
+            title="Activate APA"
+            onclick={handleClick}
+            disabled={isLoading}
+            class="slds-align_absolute-center">
+            </lightning-button>
         </div>
         <!--
         <section if:true={opportunityData.data}>
