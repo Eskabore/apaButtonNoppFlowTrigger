@@ -1,4 +1,4 @@
-import { LightningElement, api, wire, track} from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import { getRecord, updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import OPPORTUNITY_OBJECT from '@salesforce/schema/Opportunity';
@@ -12,68 +12,44 @@ export default class DiscountComponent extends LightningElement {
     @api recordId;
     discountAmount;
     discountPercentage;
-    @track isRabattPercentChecked = false;
-    @track isRabattEurChecked = false;
+    isRabattPercentChecked = false;
+    isRabattEurChecked = false;
 
-    // Fetch existing record data to pre-populate fields if they have values
-    @wire(getRecord, { recordId: '$recordId', fields: [DISCOUNT_AMOUNT_FIELD, DISCOUNT_PERCENTAGE_FIELD, RABATT_IN_PERCENT_FIELD, RABATT_IN_EUR_FIELD] })
+    @wire(getRecord, {
+        recordId: '$recordId',
+        fields: [
+            DISCOUNT_AMOUNT_FIELD,
+            DISCOUNT_PERCENTAGE_FIELD,
+            RABATT_IN_PERCENT_FIELD,
+            RABATT_IN_EUR_FIELD
+        ]
+    })
     opportunity;
 
     get loadedDiscountAmount() {
-        return this.opportunity.data ? this.opportunity.data.fields.Discount_Amount__c.value : null;
+        return this.opportunity.data?.fields[DISCOUNT_AMOUNT_FIELD.fieldApiName]?.value;
     }
 
     get loadedDiscountPercentage() {
-        return this.opportunity.data ? this.opportunity.data.fields.Discount_Percentage__c.value : null;
+        return this.opportunity.data?.fields[DISCOUNT_PERCENTAGE_FIELD.fieldApiName]?.value;
     }
 
-    handleAmountChange(event) {
-        this.discountAmount = event.target.value;
-    }
-
-    handlePercentageChange(event) {
-        this.discountPercentage = event.target.value;
-    }
-
-    handleRabattPercentChange(event) {
-        this.isRabattPercentChecked = event.target.checked;
-    }
-
-    handleRabattEurChange(event) {
-        this.isRabattEurChecked = event.target.checked;
+    handleInputChange(event) {
+        const field = event.target.name;
+        this[field] = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     }
 
     handleSave() {
-        const fields = {};
-        fields['Id'] = this.recordId;
-        if (this.discountAmount !== undefined) {
-            fields[DISCOUNT_AMOUNT_FIELD.fieldApiName] = this.discountAmount;
-        }
-        if (this.discountPercentage !== undefined) {
-            fields[DISCOUNT_PERCENTAGE_FIELD.fieldApiName] = this.discountPercentage;
-        }
+        const fields = { Id: this.recordId };
+        if (this.discountAmount !== undefined) fields[DISCOUNT_AMOUNT_FIELD.fieldApiName] = this.discountAmount;
+        if (this.discountPercentage !== undefined) fields[DISCOUNT_PERCENTAGE_FIELD.fieldApiName] = this.discountPercentage;
 
-        const recordInput = { fields };
+        updateRecord({ fields })
+            .then(() => this.showToast('Erfolg', 'Rabatt aktualisiert', 'successs'))
+            .catch(error => this.showToast('Fehler', error.body.message, 'error'));
+    }
 
-        updateRecord(recordInput)
-            .then(() => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Erfolg',
-                        message: 'Rabatt aktualisiert',
-                        variant: 'success'
-                    })
-                );
-                // Clear the form or do additional actions if needed
-            })
-            .catch(error => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Error updating record',
-                        message: error.body.message,
-                        variant: 'error'
-                    })
-                );
-            });
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 }

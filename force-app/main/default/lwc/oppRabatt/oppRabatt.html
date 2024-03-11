@@ -4,23 +4,25 @@
             <template if:true={opportunity.data}>
                 <template if:true={opportunity.data.fields.Rabatt_in_Percent__c.value}>
                     <lightning-input type="number"
+                                     name="discountPercentage"
                                      label="Rabatt in %"
                                      value={loadedDiscountPercentage}
-                                     onchange={handlePercentageChange}>
+                                     onchange={handleInputChange}>
                     </lightning-input>
                 </template>
 
                 <template if:true={opportunity.data.fields.Rabatt_in_EUR_checkbox__c.value}>
                     <lightning-input type="number"
+                                     name="discountAmount"
                                      label="Rabatt Betrag"
                                      value={loadedDiscountAmount}
-                                     onchange={handleAmountChange}>
+                                     onchange={handleInputChange}>
                     </lightning-input>
                 </template>
 
                 <lightning-button variant="brand"
                                   label="Speichern"
-                                  title="Save"
+                                  title="Speichern"
                                   onclick={handleSave}
                                   class="slds-m-top_small">
                 </lightning-button>

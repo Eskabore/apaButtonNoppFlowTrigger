@@ -9,7 +9,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="{!recordId}" />
+            <property name="recordId" default="{!recordId}" type="String" label="Record ID" description="Die ID des Salesforce-Datensatzes, mit dem die Komponente interagiert." />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
