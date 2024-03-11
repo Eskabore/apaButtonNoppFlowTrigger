@@ -41,7 +41,7 @@ export default class OpportunityFlowTrigger extends LightningElement {
                         setTimeout(() => this.resetState(), 3000); // Delay for 3 seconds
                     })
                     .catch(error => {
-                        this.showToast('Fehler', error.body?.message || 'Unbekannter Fehler', 'error');
+                        this.showToast('Fehler', error.body?.message || 'Bitte deaktivieren Sie das Rabatt Checkbox oder setzen Sie die Reduktion auf 0', 'error');
                     })
                     .finally(() => {
                         this.isLoading = false;
