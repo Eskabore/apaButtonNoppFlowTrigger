@@ -1,0 +1,74 @@
+/* dynamicLeadFields.css */
+.partner-field-item {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer; /* To indicate it's interactive */
+}
+
+.partner-field-item:hover {
+    transform: scale(1.03); /* Slightly zoom in for emphasis */
+    background-color: #f4f6f9; /* Highlight background */
+    border-radius: 0.25rem; /* Rounded corners */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2); /* Depth with shadow */
+}
+
+/* Unified style for key (label) and value on hover */
+.key-label, .key-value {
+    transition: font-size 0.3s ease-in-out, font-weight 0.3s ease-in-out; /* Smooth font transitions */
+}
+
+.key-label:hover, .key-value:hover {
+    font-size: 105%; /* Slightly larger font for visibility */
+    font-weight: 600; /* Higher contrast */
+    background-color: #e7e9ed; /* Subtle background highlight */
+    white-space: normal; /* Allow wrapping to show full length */
+    overflow: visible; /* Show any overflow */
+}
+
+/* Main key-value pair styling */
+.key-value-pair {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d1d1d1; /* Light separation line */
+    padding: 0.75rem; /* Adequate spacing */
+    background-color: #f9f9f9; /* Row background */
+}
+
+.key-label {
+    font-weight: bold; /* Mimic Salesforce label style */
+    flex-basis: 50%; /* Allocate space for label */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Indicate more content */
+}
+
+.key-value {
+    text-align: right; /* Align value to the right */
+    max-width: 70%; /* Max width to avoid overflow */
+    overflow: hidden; /* Hide overflow initially */
+    text-overflow: ellipsis; /* Ellipsis for overflow */
+}
+
+/* Expanded section styling */
+.expandable-section {
+    max-height: 500px; /* Maximum expanded content height */
+    display: none; /* Initially hidden */
+    background-color: #ffffff; /* Background for expanded area */
+    padding: 1rem; /* Padding for content */
+    border-top: 1px solid #d1d1d1; /* Separation from main content */
+}
+
+.is-expanded .expandable-section {
+    display: block; /* Display content on expand */
+}
+
+/* Arrow icon interaction styling */
+.down-arrow {
+    cursor: pointer; /* Interactive indicator */
+    display: flex; /* Center the icon */
+    justify-content: center; /* Horizontally center */
+    padding: 0.75rem; /* Touch-friendly area */
+}
+
+.is-expanded .down-arrow {
+    transform: rotate(180deg); /* Indicate collapse action */
+}

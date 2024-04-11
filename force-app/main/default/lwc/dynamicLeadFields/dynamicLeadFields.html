@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title="Partnerspezifische Felder" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <!-- Initially Visible Fields -->
+            <template if:true={visibleFields}>
+                <div class="slds-grid slds-wrap">
+                    <template for:each={visibleFields} for:item="field">
+                        <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                            <div class="key-value-pair">
+                                <dt class="key-label" title={field.label}>{field.label}:</dt>
+                                <dd class="key-value" title={field.value}>
+                                    <!-- Use the appropriate formatted component based on the type -->
+                                    <template if:true={field.isText}>
+                                        <lightning-formatted-text value={field.value}></lightning-formatted-text>
+                                    </template>
+                                    <template if:true={field.isNumber}>
+                                        <lightning-formatted-number value={field.value}></lightning-formatted-number>
+                                    </template>
+                                    <template if:true={field.isDate}>
+                                        <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
+                                    </template>
+                                </dd>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Expandable Section for Additional Fields -->
+            <template if:true={hasMoreFields}>
+                <div class="slds-col slds-size_1-of-1">
+                    <template if:true={hasMoreFields}>
+                    <div class="down-arrow" onclick={toggleExtraFields} title="Mehr anzeigen / Weniger anzeigen">
+                        <lightning-icon icon-name="utility:chevrondown" size="small"></lightning-icon>
+                    </div>
+                </template>
+                    <template if:true={isExpanded}>
+                        <div class={computedSectionClass}>
+                            <template for:each={extraFields} for:item="extraField">
+                                <div key={extraField.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                    <!-- Similar structure for extra fields -->
+                                </div>
+                            </template>
+                            <!-- Signal a Duplicate button -->
+                            <lightning-button label="Signal a Duplicate" onclick={signalDuplicate} class="signal-btn"></lightning-button>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
