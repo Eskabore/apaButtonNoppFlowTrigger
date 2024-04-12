@@ -67,8 +67,15 @@
     display: flex; /* Center the icon */
     justify-content: center; /* Horizontally center */
     padding: 0.75rem; /* Touch-friendly area */
+    transform: rotate(0deg);
+    transition: 0.5s ease-in-out;
 }
 
 .is-expanded .down-arrow {
     transform: rotate(180deg); /* Indicate collapse action */
+}
+
+.signal-btn {
+    margin-top: 1rem; /* Space above the button */
+    width: 100%; /* Full width for emphasis */
 }

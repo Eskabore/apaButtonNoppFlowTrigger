@@ -29,7 +29,11 @@ export default class DynamicLeadFields extends LightningElement {
 
     // Method to toggle the expandable section.
     toggleExtraFields() {
+
+        console.log('Before toggling:', this.isExpanded);
         this.isExpanded = !this.isExpanded;
+        console.log('After toggling:', this.isExpanded);
+
         // Toggle which fields are considered "visible" based on the isExpanded state
     if (this.isExpanded) {
         // Show all fields when expanded
