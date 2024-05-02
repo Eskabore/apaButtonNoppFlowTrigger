@@ -1,19 +1,44 @@
 /* dynamicLeadFields.css */
+
+/* Card styling */
+.lightning-card {
+    border: 1px solid #d6d6d6; /* Adding a subtle border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border-radius: 0.5rem; /* Rounded corners for modern look */
+}
+
+/* Title styling */
+.lightning-card .slds-card__header-title {
+    color: #5e5e5e; /* Dark grey color for the title */
+    font-size: 1.2rem; /* Slightly larger font size for emphasis */
+    font-weight: 600; /* Medium boldness */
+}
+
+/* Enhancing the overall padding and margin of the content within the card */
+.lightning-card .slds-card__body {
+    padding: 1.5rem; /* Increased padding for better spacing */
+}
+
 .partner-field-item {
-    transition: transform 0.3s ease-in-out;
-    cursor: pointer; /* To indicate it's interactive */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer; /* Indicate it's interactive */
+    margin-bottom: -1px; /* Overlap borders to prevent gaps */
+    border-radius: 0.5rem; /* Rounded corners */
 }
 
 .partner-field-item:hover {
-    transform: scale(1.03); /* Slightly zoom in for emphasis */
+    transform: scale(1.03); /* Zoom in for emphasis */
     background-color: #f4f6f9; /* Highlight background */
-    border-radius: 0.25rem; /* Rounded corners */
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2); /* Depth with shadow */
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.1); /* Softer shadow for depth */
 }
 
-/* Unified style for key (label) and value on hover */
 .key-label, .key-value {
-    transition: font-size 0.3s ease-in-out, font-weight 0.3s ease-in-out; /* Smooth font transitions */
+    font-size: 0.9rem; /* Slightly reduced font size for sleek look */
+    line-height: 1.6; /* Increase line height for readability */
+    color: #333333; /* Dark grey for modern look */
+    white-space: nowrap; /* Keep the text in a single line */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Indicate more content */
 }
 
 .key-label:hover, .key-value:hover {
@@ -22,6 +47,10 @@
     background-color: #e7e9ed; /* Subtle background highlight */
     white-space: normal; /* Allow wrapping to show full length */
     overflow: visible; /* Show any overflow */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1); /* Consistent shadow styling for hover */
+    border-radius: 0.25rem; /* Slightly rounded corners for hover effect */
+    margin: -2px; /* Adjust margin to maintain layout during hover */
+    z-index: 1; /* Ensure the hovered item stands out above others */
 }
 
 /* Main key-value pair styling */
@@ -29,36 +58,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #d1d1d1; /* Light separation line */
-    padding: 0.75rem; /* Adequate spacing */
-    background-color: #f9f9f9; /* Row background */
+    border-bottom: 1px solid #d1d1d1; /* Subtle separation line */
+    padding: 0.5rem 0.75rem; /* Adjusted padding */
+    background-color: #ffffff; /* White background for clean look */
+    margin-bottom: 0.5rem; /* Space between pairs */
 }
 
 .key-label {
-    font-weight: bold; /* Mimic Salesforce label style */
-    flex-basis: 50%; /* Allocate space for label */
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Indicate more content */
+    max-width: 150px;
 }
 
 .key-value {
     text-align: right; /* Align value to the right */
-    max-width: 70%; /* Max width to avoid overflow */
-    overflow: hidden; /* Hide overflow initially */
-    text-overflow: ellipsis; /* Ellipsis for overflow */
+    flex-grow: 1; /* Allow value to take up available space */
+    max-width: 200px;
 }
+
 
 /* Expanded section styling */
 .expandable-section {
-    max-height: 500px; /* Maximum expanded content height */
-    display: none; /* Initially hidden */
+    transition: max-height 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden; /* Hide overflow during transition */
     background-color: #ffffff; /* Background for expanded area */
     padding: 1rem; /* Padding for content */
-    border-top: 1px solid #d1d1d1; /* Separation from main content */
+    border-radius: 0.5rem; /* Rounded corners for expanded section */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.05); /* Shadow for depth */
 }
 
 .is-expanded .expandable-section {
     display: block; /* Display content on expand */
+    max-height: none; /* Allow it to expand fully */
 }
 
 /* Arrow icon interaction styling */
@@ -67,8 +96,7 @@
     display: flex; /* Center the icon */
     justify-content: center; /* Horizontally center */
     padding: 0.75rem; /* Touch-friendly area */
-    transform: rotate(0deg);
-    transition: 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out; /* Smooth rotation */
 }
 
 .is-expanded .down-arrow {
@@ -78,4 +106,29 @@
 .signal-btn {
     margin-top: 1rem; /* Space above the button */
     width: 100%; /* Full width for emphasis */
+    border-radius: 0.5rem; /* Rounded corners for button */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1); /* Consistent shadow styling */
+}
+
+/* Button  */
+.button-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+}
+
+.action-button {
+    font-size: 1rem; /* Larger font size for better readability */
+    padding: 0.75rem 1.5rem; /* More padding for a larger, easier-to-click button */
+    background-color: #1589EE; /* A vibrant color for the button */
+    color: white; /* White text for contrast */
+    border: none; /* No border for a cleaner look */
+    border-radius: 0.4rem; /* Slightly rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+.action-button:hover {
+    background-color: #106AB7; /* Slightly darker on hover for visual feedback */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover for emphasis */
 }
