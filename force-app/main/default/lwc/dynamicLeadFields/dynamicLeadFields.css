@@ -107,19 +107,21 @@
     margin-top: 1rem; /* Space above the button */
     width: 100%; /* Full width for emphasis */
     border-radius: 0.5rem; /* Rounded corners for button */
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1); /* Consistent shadow styling */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2); /* Consistent shadow styling */
 }
 
 /* Button  */
 .button-container {
-    padding: 1rem;
+    padding: 0.4rem;
     display: flex;
     justify-content: center; /* Center the button horizontally */
+    background-color: transparent;
+    border-top: 1px solid #f4f4f5;
 }
 
 .action-button {
-    font-size: 1rem; /* Larger font size for better readability */
-    padding: 0.75rem 1.5rem; /* More padding for a larger, easier-to-click button */
+    font-size: 0.7rem; /* Larger font size for better readability */
+    padding: 0; /* More padding for a larger, easier-to-click button */
     background-color: #1589EE; /* A vibrant color for the button */
     color: white; /* White text for contrast */
     border: none; /* No border for a cleaner look */
@@ -130,5 +132,5 @@
 
 .action-button:hover {
     background-color: #106AB7; /* Slightly darker on hover for visual feedback */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover for emphasis */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover for emphasis */
 }

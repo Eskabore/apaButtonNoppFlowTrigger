@@ -108,7 +108,11 @@ export default class DynamicLeadFields extends LightningElement {
 
     // Check if a field's value is a date
     isDate(value) {
-        return typeof value === 'string' && value.trim() !== '' && !isNaN(Date.parse(value));
+        if (typeof value !== 'string' || value.trim() === '') {
+            return false;
+        }
+        const date = new Date(value);
+        return !isNaN(date.getTime()) && date.toISOString().slice(0,10) === value;
     }
 
     // Toggle visibility of extra fields
