@@ -3,33 +3,35 @@
 /* Card styling */
 .lightning-card {
     border: 1px solid #d6d6d6; /* Adding a subtle border */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
     border-radius: 0.5rem; /* Rounded corners for modern look */
+    overflow: hidden; /* Ensures content stays within rounded corners */
 }
 
 /* Title styling */
 .lightning-card .slds-card__header-title {
     color: #5e5e5e; /* Dark grey color for the title */
-    font-size: 1.2rem; /* Slightly larger font size for emphasis */
+    font-size: 1.1rem; /* Slightly larger font size for emphasis */
     font-weight: 600; /* Medium boldness */
 }
 
 /* Enhancing the overall padding and margin of the content within the card */
 .lightning-card .slds-card__body {
-    padding: 1.5rem; /* Increased padding for better spacing */
+    padding: 1rem; /* Reduced padding for better spacing */
 }
 
 .partner-field-item {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
     cursor: pointer; /* Indicate it's interactive */
     margin-bottom: -1px; /* Overlap borders to prevent gaps */
     border-radius: 0.5rem; /* Rounded corners */
+    padding: 0.5rem; /* Reduced padding for better fit */
 }
 
 .partner-field-item:hover {
-    transform: scale(1.03); /* Zoom in for emphasis */
+    transform: scale(1.03); /* Slightly more zoom for emphasis */
     background-color: #f4f6f9; /* Highlight background */
-    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.1); /* Softer shadow for depth */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
 }
 
 .key-label, .key-value {
@@ -42,12 +44,12 @@
 }
 
 .key-label:hover, .key-value:hover {
-    font-size: 105%; /* Slightly larger font for visibility */
+    font-size: 1rem; /* Slightly larger font for visibility */
     font-weight: 600; /* Higher contrast */
     background-color: #e7e9ed; /* Subtle background highlight */
     white-space: normal; /* Allow wrapping to show full length */
     overflow: visible; /* Show any overflow */
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1); /* Consistent shadow styling for hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow styling for hover */
     border-radius: 0.25rem; /* Slightly rounded corners for hover effect */
     margin: -2px; /* Adjust margin to maintain layout during hover */
     z-index: 1; /* Ensure the hovered item stands out above others */
@@ -62,6 +64,7 @@
     padding: 0.5rem 0.75rem; /* Adjusted padding */
     background-color: #ffffff; /* White background for clean look */
     margin-bottom: 0.5rem; /* Space between pairs */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background */
 }
 
 .key-label {
@@ -74,7 +77,6 @@
     max-width: 200px;
 }
 
-
 /* Expanded section styling */
 .expandable-section {
     transition: max-height 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -82,7 +84,7 @@
     background-color: #ffffff; /* Background for expanded area */
     padding: 1rem; /* Padding for content */
     border-radius: 0.5rem; /* Rounded corners for expanded section */
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.05); /* Shadow for depth */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
 }
 
 .is-expanded .expandable-section {
@@ -95,7 +97,7 @@
     cursor: pointer; /* Interactive indicator */
     display: flex; /* Center the icon */
     justify-content: center; /* Horizontally center */
-    padding: 0.75rem; /* Touch-friendly area */
+    padding: 0.5rem; /* Touch-friendly area */
     transition: transform 0.5s ease-in-out; /* Smooth rotation */
 }
 
@@ -107,10 +109,10 @@
     margin-top: 1rem; /* Space above the button */
     width: 100%; /* Full width for emphasis */
     border-radius: 0.5rem; /* Rounded corners for button */
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2); /* Consistent shadow styling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow styling */
 }
 
-/* Button  */
+/* Button styling */
 .button-container {
     padding: 0.4rem;
     display: flex;
@@ -120,17 +122,22 @@
 }
 
 .action-button {
-    font-size: 0.7rem; /* Larger font size for better readability */
-    padding: 0; /* More padding for a larger, easier-to-click button */
+    font-size: 0.9rem; /* Slightly larger font size for better readability */
+    padding: 0; /* Adjusted padding for a better fit */
     background-color: #1589EE; /* A vibrant color for the button */
     color: white; /* White text for contrast */
     border: none; /* No border for a cleaner look */
-    border-radius: 0.4rem; /* Slightly rounded corners */
+    border-radius: 0.5rem; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
 }
 
 .action-button:hover {
     background-color: #106AB7; /* Slightly darker on hover for visual feedback */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover for emphasis */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover for emphasis */
+}
+
+/* Tab styling */
+.slds-tabs_default__item_empty .slds-tabs_default__link {
+    color: gray;
 }

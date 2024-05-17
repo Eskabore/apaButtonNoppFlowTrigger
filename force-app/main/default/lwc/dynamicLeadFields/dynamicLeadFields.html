@@ -1,119 +1,190 @@
 <template>
     <lightning-card title="Partnerspezifische Felder" icon-name="custom:custom14">
         <div class="slds-m-around_medium">
-            <!-- Render initially visible fields -->
-            <div class="slds-grid slds-wrap">
-                <template for:each={visibleFields} for:item="field">
-                    <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
-                        <div class="key-value-pair">
-                            <dt class="key-label" title={field.label}>{field.label}</dt>
-                            <dd class="key-value" title={field.value}>
-                                <!-- Conditional rendering based on field type -->
-                                <template if:true={field.isText}>
-                                    <lightning-formatted-text value={field.value}></lightning-formatted-text>
-                                </template>
-                                <template if:true={field.isNumber}>
-                                    <lightning-formatted-number value={field.value}></lightning-formatted-number>
-                                </template>
-                                <template if:true={field.isDate}>
-                                    <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
-                                </template>
-                            </dd>
+            <!-- Tab Navigation -->
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item {isFieldsTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="fields">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Felder</a>
+                </li>
+                <li class="slds-tabs_default__item {isCommentsTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="comments">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Kommentare</a>
+                </li>
+                <li class="slds-tabs_default__item {isImagesTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="images">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Bilder</a>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="slds-tabs_default__content {isFieldsTabActive ? 'slds-show' : 'slds-hide'}">
+                <!-- Render initially visible fields -->
+                <div class="slds-grid slds-wrap">
+                    <template for:each={visibleFields} for:item="field">
+                        <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                            <div class="key-value-pair">
+                                <dt class="key-label" title={field.label}>{field.label}</dt>
+                                <dd class="key-value" title={field.value}>
+                                    <!-- Conditional rendering based on field type -->
+                                    <template if:true={field.isText}>
+                                        <lightning-formatted-text value={field.value}></lightning-formatted-text>
+                                    </template>
+                                    <template if:true={field.isNumber}>
+                                        <lightning-formatted-number value={field.value}></lightning-formatted-number>
+                                    </template>
+                                    <template if:true={field.isDate}>
+                                        <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
+                                    </template>
+                                </dd>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Expandable Section Trigger -->
+                <template if:true={hasMoreFields}>
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class={arrowClasses} onclick={toggleExtraFields} title="Mehr anzeigen / Weniger anzeigen">
+                            <lightning-icon icon-name="utility:chevrondown" size="small" class={arrowClasses}></lightning-icon>
                         </div>
                     </div>
                 </template>
-            </div>
 
-            <!-- Expandable Section Trigger -->
-            <template if:true={hasMoreFields}>
-                <div class="slds-col slds-size_1-of-1">
-                    <div class={arrowClasses} onclick={toggleExtraFields} title="Mehr anzeigen / Weniger anzeigen">
-                        <lightning-icon icon-name="utility:chevrondown" size="small" class={arrowClasses}></lightning-icon>
-                    </div>
-                </div>
-            </template>
+                <!-- Expandable Section for Additional Fields -->
+                <template if:true={isExpanded}>
+                    <div class={computedSectionClass}>
+                        <div class="slds-grid slds-wrap">
+                            <!-- Render extra fields that are not categorized under specific sections -->
+                            <template for:each={extraFields} for:item="field">
+                                <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                    <div class="key-value-pair">
+                                        <dt class="key-label" title={field.label}>{field.label}:</dt>
+                                        <dd class="key-value" title={field.value}>
+                                            <!-- Conditional formatting based on field type -->
+                                            <template if:true={field.isText}>
+                                                <lightning-formatted-text value={field.value}></lightning-formatted-text>
+                                            </template>
+                                            <template if:true={field.isNumber}>
+                                                <lightning-formatted-number value={field.value}></lightning-formatted-number>
+                                            </template>
+                                            <template if:true={field.isDate}>
+                                                <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
+                                            </template>
+                                        </dd>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
 
-            <!-- Expandable Section for Additional Fields -->
-            <template if:true={isExpanded}>
-                <div class={computedSectionClass}>
-                    <div class="slds-grid slds-wrap">
-                        <!-- Render extra fields that are not categorized under specific sections -->
-                        <template for:each={extraFields} for:item="field">
-                            <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
-                                <div class="key-value-pair">
-                                    <dt class="key-label" title={field.label}>{field.label}:</dt>
-                                    <dd class="key-value" title={field.value}>
-                                        <!-- Conditional formatting based on field type -->
-                                        <template if:true={field.isText}>
-                                            <lightning-formatted-text value={field.value}></lightning-formatted-text>
-                                        </template>
-                                        <template if:true={field.isNumber}>
-                                            <lightning-formatted-number value={field.value}></lightning-formatted-number>
-                                        </template>
-                                        <template if:true={field.isDate}>
-                                            <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
-                                        </template>
-                                    </dd>
+                        <!-- Conditional Sections for Dependent Fields -->
+                        <!-- Installation Contact Section -->
+                        <template if:true={installationFields.length}>
+                            <div class="slds-m-top_medium">
+                                <h2 class="slds-section-title">Installation Contact</h2>
+                                <div class="slds-grid slds-wrap">
+                                    <template for:each={installationFields} for:item="field">
+                                        <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                            <div class="key-value-pair">
+                                                <dt class="key-label" title={field.label}>{field.label}:</dt>
+                                                <dd class="key-value" title={field.value}>
+                                                    <!-- Conditional formatting based on field type -->
+                                                    <template if:true={field.isText}>
+                                                        <lightning-formatted-text value={field.value}></lightning-formatted-text>
+                                                    </template>
+                                                    <template if:true={field.isNumber}>
+                                                        <lightning-formatted-number value={field.value}></lightning-formatted-number>
+                                                    </template>
+                                                    <template if:true={field.isDate}>
+                                                        <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
+                                                    </template>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Terminvereinbarung Section -->
+                        <template if:true={appointmentFields.length}>
+                            <div class="slds-m-top_medium">
+                                <h2 class="slds-section-title">Terminvereinbarung</h2>
+                                <div class="slds-grid slds-wrap">
+                                    <template for:each={appointmentFields} for:item="field">
+                                        <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                            <div class="key-value-pair">
+                                                <dt class="key-label" title={field.label}>{field.label}:</dt>
+                                                <dd class="key-value" title={field.value}>
+                                                    <!-- Conditional formatting based on field type -->
+                                                    <template if:true={field.isText}>
+                                                        <lightning-formatted-text value={field.value}></lightning-formatted-text>
+                                                    </template>
+                                                    <template if:true={field.isNumber}>
+                                                        <lightning-formatted-number value={field.value}></lightning-formatted-number>
+                                                    </template>
+                                                    <template if:true={field.isDate}>
+                                                        <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
+                                                    </template>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Frage-Antworte Section -->
+                        <template if:true={questionsAnswers.length}>
+                            <div class="slds-m-top_medium">
+                                <h2 class="slds-section-title">Frage-Antwort</h2>
+                                <div class="slds-grid slds-wrap">
+                                    <template for:each={questionsAnswers} for:item="qa">
+                                        <div key={qa.question} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                            <div class="key-value-pair">
+                                                <dt class="key-label">{qa.question}</dt>
+                                                <dd class="key-value">{qa.answer}</dd>
+                                            </div>
+                                        </div>
+                                    </template>
                                 </div>
                             </div>
                         </template>
                     </div>
+                </template>
+            </div>
 
-                    <!-- Conditional Sections for Dependent Fields -->
-                    <!-- Installation Contact Section -->
-                    <template if:true={installationFields.length}>
-                        <div class="slds-m-top_medium">
-                            <h2 class="slds-section-title">Installation Contact</h2>
-                            <div class="slds-grid slds-wrap">
-                                <template for:each={installationFields} for:item="field">
-                                    <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
-                                        <div class="key-value-pair">
-                                            <dt class="key-label" title={field.label}>{field.label}:</dt>
-                                            <dd class="key-value" title={field.value}>
-                                                <!-- Conditional formatting based on field type -->
-                                                <template if:true={field.isText}>
-                                                    <lightning-formatted-text value={field.value}></lightning-formatted-text>
-                                                </template>
-                                                <template if:true={field.isNumber}>
-                                                    <lightning-formatted-number value={field.value}></lightning-formatted-number>
-                                                </template>
-                                                <template if:true={field.isDate}>
-                                                    <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
-                                                </template>
-                                            </dd>
-                                        </div>
-                                    </div>
-                                </template>
+            <!-- Comments Tab Content -->
+            <template if:true={isCommentsTabActive}>
+                <div class="slds-m-top_medium">
+                    <h2 class="slds-section-title">Kommentare</h2>
+                    <div class="slds-grid slds-wrap">
+                        <template if:true={comments}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                <lightning-formatted-text value={comments}></lightning-formatted-text>
                             </div>
+                        </template>
+                        <template if:false={comments}>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
+                                <lightning-formatted-text value="Keine Kommentare verfügbar"></lightning-formatted-text>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Images Tab Content -->
+            <template if:true={isImagesTabActive}>
+                <div class="slds-m-top_medium">
+                    <h2 class="slds-section-title">Bilder</h2>
+                    <template if:true={images.length}>
+                        <div class="slds-carousel">
+                            <template for:each={images} for:item="image">
+                                <div key={image.url} class="slds-carousel__panel">
+                                    <img src={image.thumbnail_url} alt="Image" class="slds-carousel__image"/>
+                                </div>
+                            </template>
                         </div>
                     </template>
-
-                    <!-- Terminvereinbarung Section -->
-                    <template if:true={appointmentFields.length}>
-                        <div class="slds-m-top_medium">
-                            <h2 class="slds-section-title">Terminvereinbarung</h2>
-                            <div class="slds-grid slds-wrap">
-                                <template for:each={appointmentFields} for:item="field">
-                                    <div key={field.label} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 partner-field-item">
-                                        <div class="key-value-pair">
-                                            <dt class="key-label" title={field.label}>{field.label}:</dt>
-                                            <dd class="key-value" title={field.value}>
-                                                <!-- Conditional formatting based on field type -->
-                                                <template if:true={field.isText}>
-                                                    <lightning-formatted-text value={field.value}></lightning-formatted-text>
-                                                </template>
-                                                <template if:true={field.isNumber}>
-                                                    <lightning-formatted-number value={field.value}></lightning-formatted-number>
-                                                </template>
-                                                <template if:true={field.isDate}>
-                                                    <lightning-formatted-date-time value={field.value}></lightning-formatted-date-time>
-                                                </template>
-                                            </dd>
-                                        </div>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+                    <template if:false={images.length}>
+                        <lightning-formatted-text value="Keine Bilder verfügbar"></lightning-formatted-text>
                     </template>
                 </div>
             </template>
@@ -124,9 +195,9 @@
             </template>
 
             <div class="button-container">
-                <lightning-button variant="brand" label="Duplikat Melden" title="Duplikat Melden" onclick={signalDuplicate} class="action-button"></lightning-button>
+                <lightning-button variant="brand" label="Duplikat Melden" title="Duplikat Melden"
+                    onclick={signalDuplicate} class="action-button"></lightning-button>
             </div>
-
         </div>
     </lightning-card>
 </template>
