@@ -3,13 +3,13 @@
         <div class="slds-m-around_medium">
             <!-- Tab Navigation -->
             <ul class="slds-tabs_default__nav" role="tablist">
-                <li class="slds-tabs_default__item {isFieldsTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="fields">
+                <li class="slds-tabs_default__item {isFieldsTabActive ? 'slds-active' : ''}" role="presentation" data-tab="fields">
                     <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Felder</a>
                 </li>
-                <li class="slds-tabs_default__item {isCommentsTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="comments">
+                <li class="slds-tabs_default__item {isCommentsTabActive ? 'slds-active' : ''}" role="presentation" data-tab="comments">
                     <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Kommentare</a>
                 </li>
-                <li class="slds-tabs_default__item {isImagesTabActive ? 'slds-active' : ''}" role="presentation" onclick={handleTabClick} data-tab="images">
+                <li class="slds-tabs_default__item {isImagesTabActive ? 'slds-active' : ''}" role="presentation" data-tab="images">
                     <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab">Bilder</a>
                 </li>
             </ul>
@@ -42,7 +42,7 @@
                 <!-- Expandable Section Trigger -->
                 <template if:true={hasMoreFields}>
                     <div class="slds-col slds-size_1-of-1">
-                        <div class={arrowClasses} onclick={toggleExtraFields} title="Mehr anzeigen / Weniger anzeigen">
+                        <div class={arrowClasses} title="Mehr anzeigen / Weniger anzeigen" onclick={toggleExtraFields}>
                             <lightning-icon icon-name="utility:chevrondown" size="small" class={arrowClasses}></lightning-icon>
                         </div>
                     </div>
@@ -200,4 +200,11 @@
             </div>
         </div>
     </lightning-card>
+
+    <!-- Bottom Section for Truncated Comments -->
+    <template if:true={showTruncatedComments}>
+        <div class="slds-m-top_medium">
+            <lightning-formatted-text value={truncatedComments}></lightning-formatted-text>
+        </div>
+    </template>
 </template>

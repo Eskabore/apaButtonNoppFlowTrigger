@@ -214,9 +214,9 @@ export default class DynamicLeadFields extends LightningElement {
 
     // Handle tab switching
     handleTabClick(event) {
-        const tab = event.target.dataset.tab;
+        const tab = event.target.closest('[data-tab]');
         if (tab) {
-            this.activeTab = tab;
+            this.activeTab = tab.dataset.tab;
         }
     }
 
