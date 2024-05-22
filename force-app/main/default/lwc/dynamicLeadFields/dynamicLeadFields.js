@@ -88,10 +88,10 @@ export default class DynamicLeadFields extends LightningElement {
             // Log each field to verify its content
             console.log(`Processing field: ${key}`, field);
 
-            if (field.label === 'Telefon der Kontaktperson' || field.label === 'Postleitzahl der Kontaktperson') {
+            if (field.label === 'Telefon der Kontaktperson' || field.label === 'Postleitzahl der Kontaktperson' || field.label === 'Mobil der Kontaktperson') {
                 fieldsArray.push({
                     label: field.label,
-                    value: field.value ?? 'Default Value',  // Default value if null or undefined
+                    value: field.value ?? '',  // Default value if null or undefined
                     isText: true,  // Explicitly marking as text
                     isNumber: false,
                     isDate: false,
@@ -104,7 +104,7 @@ export default class DynamicLeadFields extends LightningElement {
             else if (field.label && field.value !== undefined) { // Ensures empty strings are considered
                 fieldsArray.push({
                     label: field.label,
-                    value: field.value ?? 'Default Value',  // Default value if null or undefined
+                    value: field.value ?? '',  // Default value if null or undefined
                     isText: typeof field.value === 'string' && !this.isNumber(field.value) && !this.isDate(field.value),
                     isNumber: this.isNumber(field.value),
                     isDate: this.isDate(field.value),
@@ -197,6 +197,7 @@ export default class DynamicLeadFields extends LightningElement {
 
     // Computed property to check if there are enough fields to need more fields section
     get hasMoreFields() {
+        // Check if the arrays are defined before trying to access their length
         return (this.extraFields && this.extraFields.length > 0) ||
             (this.installationFields && this.installationFields.length > 0) ||
             (this.appointmentFields && this.appointmentFields.length > 0);
@@ -214,9 +215,9 @@ export default class DynamicLeadFields extends LightningElement {
 
     // Handle tab switching
     handleTabClick(event) {
-        const tab = event.target.closest('[data-tab]');
+        const tab = event.target.dataset.tab;
         if (tab) {
-            this.activeTab = tab.dataset.tab;
+            this.activeTab = tab;
         }
     }
 
