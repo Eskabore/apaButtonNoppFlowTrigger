@@ -10,7 +10,12 @@
                     <a class="slds-tabs_default__link" data-tab="comments" role="tab" tabindex="0">Kommentare</a>
                 </li>
                 <li class="slds-tabs_default__item {isImagesTabActive ? 'slds-is-active' : ''}" role="presentation">
-                    <a class="slds-tabs_default__link" data-tab="images" role="tab" tabindex="0">Bilder</a>
+                    <a class="slds-tabs_default__link" data-tab="images" role="tab" tabindex="0">
+                        Bilder
+                        <template if:true={images.length}>
+                            <span class="slds-badge slds-m-left_x-small"> </span>
+                        </template>
+                    </a>
                 </li>
             </ul>
 

@@ -88,6 +88,11 @@ export default class DynamicLeadFields extends LightningElement {
             // Log each field to verify its content
             console.log(`Processing field: ${key}`, field);
 
+            // Modify phone or mobile numbers starting with '00' to start with '+'
+            if (this.isPhoneNumber(field.value)) {
+                field.value = this.transformPhoneNumber(field.value);
+            }
+
             if (field.label === 'Telefon der Kontaktperson' || field.label === 'Postleitzahl der Kontaktperson' || field.label === 'Mobil der Kontaktperson') {
                 fieldsArray.push({
                     label: field.label,
@@ -117,6 +122,20 @@ export default class DynamicLeadFields extends LightningElement {
         }, []);
     }
 
+    // Transform phone number starting with '00' to '+'
+    transformPhoneNumber(phoneNumber) {
+        if (phoneNumber.startsWith('00')) {
+            return '+' + phoneNumber.slice(2);
+        }
+        return phoneNumber;
+    }
+
+    // Check if a field's value is a phone number
+    isPhoneNumber(value) {
+        const phoneRegex = /^00\d+$/;
+        return phoneRegex.test(value);
+    }
+
     // Process fields to categorize them based on dependentField value
     processFields(fieldsArray) {
         // Reset categories
@@ -124,7 +143,6 @@ export default class DynamicLeadFields extends LightningElement {
         this.extraFields = [];
         this.installationFields = [];
         this.appointmentFields = [];
-
 
         // Categorize fields based on their properties
         fieldsArray.forEach(field => {
@@ -154,7 +172,6 @@ export default class DynamicLeadFields extends LightningElement {
             appointmentFields: this.appointmentFields
         });
     }
-
 
     // Check if a field's value is a number
     isNumber(value) {

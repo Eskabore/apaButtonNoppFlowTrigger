@@ -141,3 +141,11 @@
 .slds-tabs_default__item_empty .slds-tabs_default__link {
     color: gray;
 }
+
+.slds-badge {
+    background-color: #e0b300; /* Red color for high visibility */
+    color: white;
+    border-radius: 1rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.75rem;
+}
